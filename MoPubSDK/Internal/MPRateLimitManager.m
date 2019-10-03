@@ -36,6 +36,10 @@
 }
 
 - (void)setRateLimitTimerWithAdUnitId:(NSString *)adUnitId milliseconds:(NSInteger)milliseconds reason:(NSString *)reason {
+    if (adUnitId == nil) {
+        return;
+    }
+
     @synchronized (self) {
         if (self.configurationDictionary[adUnitId] == nil) {
             self.configurationDictionary[adUnitId] = [[MPRateLimitConfiguration alloc] init];
@@ -47,15 +51,15 @@
 }
 
 - (BOOL)isRateLimitedForAdUnitId:(NSString *)adUnitId {
-    return self.configurationDictionary[adUnitId].isRateLimited;
+    return adUnitId != nil ? self.configurationDictionary[adUnitId].isRateLimited : NO;
 }
 
 - (NSUInteger)lastRateLimitMillisecondsForAdUnitId:(NSString *)adUnitId {
-    return self.configurationDictionary[adUnitId].lastRateLimitMilliseconds;
+    return adUnitId != nil ? self.configurationDictionary[adUnitId].lastRateLimitMilliseconds : 0;
 }
 
 - (NSString *)lastRateLimitReasonForAdUnitId:(NSString *)adUnitId {
-    return self.configurationDictionary[adUnitId].lastRateLimitReason;
+    return adUnitId != nil ? self.configurationDictionary[adUnitId].lastRateLimitReason : nil;
 }
 
 @end
