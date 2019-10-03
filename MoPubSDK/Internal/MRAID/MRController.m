@@ -114,11 +114,11 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
         _mraidDefaultAdFrame = adViewFrame;
 
-        _adPropertyUpdateTimer = [[MPCoreInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:kAdPropertyUpdateTimerInterval
-                                                                                                target:self
-                                                                                              selector:@selector(updateMRAIDProperties)
-                                                                                               repeats:YES];
-        _adPropertyUpdateTimer.runLoopMode = NSRunLoopCommonModes;
+        _adPropertyUpdateTimer = [MPTimer timerWithTimeInterval:kAdPropertyUpdateTimerInterval
+                                                         target:self
+                                                       selector:@selector(updateMRAIDProperties)
+                                                        repeats:YES
+                                                    runLoopMode:NSRunLoopCommonModes];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(viewEnteredBackground)
